@@ -1,0 +1,18 @@
+services:
+  auth-service:
+    build: 
+      context: ./authService/AuthenticationService
+      dockerfile: Dockerfile
+    container_name: auth_service
+    ports:
+      - "${AUTH_PORT}:${AUTH_PORT}"
+    environment:
+      - SPRING_DATA_MONGODB_URI=${DB_CONNECTION_URL}
+      - SERVER_PORT=${AUTH_PORT}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
+      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SPRING_LOG_PATH=/var/log/authentication-service
+    volumes:
+      - ${LOG_PATH}:/var/log/authentication-service
+
