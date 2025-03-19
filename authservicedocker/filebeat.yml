@@ -10,4 +10,4 @@ output.elasticsearch:
   hosts: ["${ELASTICSEARCH_HOST}"]
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
-  index: "auth-service"
+  index: "auth-service-%{+yyyy.MM.dd}"
