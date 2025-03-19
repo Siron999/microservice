@@ -21,7 +21,7 @@ services:
     user: root
     volumes:
       - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
-      - ${LOG_PATH}:/var/log/authentication-service:ro
+      - ${LOG_PATH}:/var/log/gateway-service:ro
     environment:
       - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
