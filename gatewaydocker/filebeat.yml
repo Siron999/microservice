@@ -1,0 +1,19 @@
+filebeat.inputs:
+  - type: log
+    enabled: true
+    paths:
+      - /var/log/gateway-service/logs/*.log
+    multiline:
+      pattern: "^[0-9]{4}-[0-9]{2}-[0-9]{2}"
+      negate: true
+      match: after
+
+setup.template.name: "gateway-service"
+setup.template.pattern: "gateway-service-*"
+setup.ilm.enabled: false
+
+output.elasticsearch:
+  hosts: ["${ELASTICSEARCH_HOST}"]
+  username: "${ELASTICSEARCH_USERNAME}"
+  password: "${ELASTICSEARCH_PASSWORD}"
+  index: "gateway-service"
