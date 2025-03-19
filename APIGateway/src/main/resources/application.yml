@@ -1,0 +1,45 @@
+server:
+  port: ${SERVER_PORT:8080}
+auth:
+  service:
+    url: ${AUTH_SERVICE}
+spring:
+  application:
+    name: AuthenticationService
+  data:
+    redis:
+      host: ${SPRING_DATA_REDIS_HOST:ec2-65-2-37-196.ap-south-1.compute.amazonaws.com}
+      port: ${SPRING_DATA_REDIS_PORT:6379}
+      password: ${SPRING_DATA_REDIS_PASSWORD:password123}
+  cloud:
+    gateway:
+      default-filters:
+        - name: JwtAuthFilter
+        - name: RequestRateLimiter
+          args:
+            redis-rate-limiter.replenishRate: 5
+            redis-rate-limiter.burstCapacity: 10
+            key-resolver: "#{@serviceBasedKeyResolver}"
+      routes:
+        - id: authentication-service
+          uri: ${SPRING_AUTH_SERVICE}
+          predicates:
+            - Path=/api/auth/**
+logging:
+  level:
+    root: INFO
+    org.springframework.web: INFO
+    org.springframework.data: INFO
+    org.springframework.security: INFO
+  pattern:
+    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId:-}] - %msg%n"
+    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId:-}] - %msg%n"
+  file:
+    name: ${SPRING_LOG_PATH}/logs/gateway-service.log
+  logback:
+    rollingpolicy:
+      max-file-size: 5MB
+      max-history: 5
+      total-size-cap: 25MB
+      clean-history-on-start: true
+      file-name-pattern: ${SPRING_LOG_PATH}/logs/archived/authentication-service.%d{yyyy-MM-dd}.%i.log

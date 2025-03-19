@@ -29,7 +29,7 @@ public class SecurityConfig {
             "/api/auth/login",
             "/api/auth/register",
             "/api/auth/authenticate",
-            "/ping"
+            "/api/auth/ping"
     };
 
     @Bean

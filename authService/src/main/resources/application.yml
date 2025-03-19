@@ -3,11 +3,11 @@ spring:
     name: AuthenticationService
   data:
       mongodb:
-        uri: ${SPRING_DATA_MONGODB_URI:mongodb://localhost:27018/authentication_db?authSource=admin}
+        uri: ${SPRING_DATA_MONGODB_URI:mongodb://mongouser:password123@ec2-65-2-37-196.ap-south-1.compute.amazonaws.com:27018/authentication_db?authSource=admin}
       redis:
-        host: ${SPRING_DATA_REDIS_HOST:localhost}
+        host: ${SPRING_DATA_REDIS_HOST:ec2-65-2-37-196.ap-south-1.compute.amazonaws.com}
         port: ${SPRING_DATA_REDIS_PORT:6379}
-        password: ${SPRING_DATA_REDIS_PASSWORD:test}
+        password: ${SPRING_DATA_REDIS_PASSWORD:password123}
 springdoc:
   api-docs:
     enabled: true
@@ -36,11 +36,11 @@ logging:
     console: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId:-}] - %msg%n"
     file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-5level %logger{36} - [%X{traceId:-}] - %msg%n"
   file:
-    name: ${SPRING_LOG_PATH}/authentication-service.log
+    name: ${SPRING_LOG_PATH}/logs/authentication-service.log
   logback:
     rollingpolicy:
       max-file-size: 5MB
       max-history: 5
       total-size-cap: 25MB
       clean-history-on-start: true
-      file-name-pattern: ${SPRING_LOG_PATH}/archived/authentication-service.%d{yyyy-MM-dd}.%i.log
+      file-name-pattern: ${SPRING_LOG_PATH}/logs/archived/authentication-service.%d{yyyy-MM-dd}.%i.log

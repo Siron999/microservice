@@ -1,7 +1,23 @@
 services:
+  gateway-service:
+    build: 
+      context: ../APIGateway
+      dockerfile: Dockerfile
+    container_name: gateway_service
+    ports:
+      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
+    environment:
+      - SERVER_PORT=${GATEWAY_PORT}
+      - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
+      - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
+      - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
+      - SPRING_LOG_PATH=/var/log/gateway-service
+      - SPRING_AUTH_SERVICE=${AUTH_SERVICE}
+    volumes:
+      - ${LOG_PATH}:/var/log/gateway-service
   auth-service:
     build: 
-      context: ./authService/AuthenticationService
+      context: ../authService
       dockerfile: Dockerfile
     container_name: auth_service
     ports:
