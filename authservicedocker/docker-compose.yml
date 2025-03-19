@@ -1,20 +1,20 @@
 services:
-  gateway-service:
+  auth-service:
     build: 
-      context: ../APIGateway
+      context: ../authService
       dockerfile: Dockerfile
-    container_name: gateway_service
+    container_name: auth_service
     ports:
-      - "${GATEWAY_PORT}:${GATEWAY_PORT}"
+      - "${AUTH_PORT}:${AUTH_PORT}"
     environment:
-      - SERVER_PORT=${GATEWAY_PORT}
+      - SPRING_DATA_MONGODB_URI=${DB_CONNECTION_URL}
+      - SERVER_PORT=${AUTH_PORT}
       - SPRING_DATA_REDIS_HOST=${REDIS_HOST}
       - SPRING_DATA_REDIS_PORT=${REDIS_PORT}
       - SPRING_DATA_REDIS_PASSWORD=${REDIS_PASSWORD}
-      - SPRING_LOG_PATH=/var/log/gateway-service
-      - SPRING_AUTH_SERVICE=${AUTH_SERVICE}
+      - SPRING_LOG_PATH=/var/log/authentication-service
     volumes:
-      - ${LOG_PATH}:/var/log/gateway-service
+      - ${LOG_PATH}:/var/log/authentication-service
   logstash:
     image: docker.elastic.co/logstash/logstash:7.8.1
     container_name: logstash
