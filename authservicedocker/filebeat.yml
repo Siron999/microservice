@@ -6,8 +6,12 @@ filebeat.inputs:
     json.keys_under_root: true
     json.add_error_key: true
 
+setup.template.name: "auth-service"
+setup.template.pattern: "auth-service-*"
+setup.ilm.enabled: false
+
 output.elasticsearch:
   hosts: ["${ELASTICSEARCH_HOST}"]
   username: "${ELASTICSEARCH_USERNAME}"
   password: "${ELASTICSEARCH_PASSWORD}"
-  index: "auth-service-%{+yyyy.MM.dd}"
+  index: "auth-service"
