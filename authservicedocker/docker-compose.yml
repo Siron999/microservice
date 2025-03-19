@@ -27,3 +27,5 @@ services:
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
     command: filebeat -e -strict.perms=false
+    depends_on:
+      - auth-service
