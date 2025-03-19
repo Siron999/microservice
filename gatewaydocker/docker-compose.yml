@@ -28,4 +28,4 @@ services:
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
     command: filebeat -e -strict.perms=false
     depends_on:
-      - gateway_service
+      - gateway-service
