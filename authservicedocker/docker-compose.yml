@@ -15,13 +15,15 @@ services:
       - SPRING_LOG_PATH=/var/log/authentication-service
     volumes:
       - ${LOG_PATH}:/var/log/authentication-service
-  logstash:
-    image: docker.elastic.co/logstash/logstash:7.8.1
-    container_name: logstash
+  filebeat:
+    image: docker.elastic.co/beats/filebeat:7.8.1
+    container_name: filebeat
+    user: root
     volumes:
-      - ./logstash.conf:/usr/share/logstash/pipeline/logstash.conf
-      - ${LOG_PATH}:/var/log/logstash
+      - ./filebeat.yml:/usr/share/filebeat/filebeat.yml:ro
+      - ${LOG_PATH}:/var/log/authentication-service:ro
     environment:
       - ELASTICSEARCH_HOST=${ELASTICSEARCH_HOST}
       - ELASTICSEARCH_USERNAME=${ELASTICSEARCH_USERNAME}
       - ELASTICSEARCH_PASSWORD=${ELASTICSEARCH_PASSWORD}
+    command: filebeat -e -strict.perms=false

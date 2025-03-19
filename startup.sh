@@ -25,6 +25,7 @@ until docker info > /dev/null 2>&1; do
 done
 
 # Start your services
+cd /home/ubuntu/microservice/authservicedocker
 docker-compose up -d
 EOF
 
