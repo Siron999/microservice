@@ -39,7 +39,7 @@ This project demonstrates a production-ready microservices setup with:
 ## 🛠 Prerequisites
 
 - Docker Desktop for Mac
-- Java 23 
+- Java 23
 - Maven
 - Git
 
@@ -95,7 +95,7 @@ Content-Type: application/json
 
 {
     "username": "string",
-    "email": "string", 
+    "email": "string",
     "password": "string",
     "fullName": "string",
     "role": "string",
@@ -187,3 +187,4 @@ Standard error response format:
     "data": null
 }
 ```
+
